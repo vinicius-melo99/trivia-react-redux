@@ -34,6 +34,7 @@ class TelaGame extends PureComponent {
     const SORTEADOR = 0.5;
     const ordemEmbaralhada = [...sortearOrdem].sort(() => Math.random() - SORTEADOR);
     return ordemEmbaralhada;
+    // console.log(ordemEmbaralhada);
   };
 
   embaralharRespostas = (respostasErradas, respostaCerta) => {
