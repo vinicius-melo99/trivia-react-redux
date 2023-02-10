@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { adicionaEmail, adicionaNome } from '../redux/actions';
+import { adicionaEmail, adicionaNome, thunkToken } from '../redux/actions';
 import triviaLogo from '../images/logo_trivia.png';
 import iconeTrybe from '../images/icone_trybe.png';
+import Loading from '../components/Loading';
 
 class TelaLogin extends React.Component {
   state = {
@@ -30,54 +31,66 @@ class TelaLogin extends React.Component {
     }, this.validateFields);
   };
 
-  handlerClick = () => {
+  saveInLocalStorage = (chave, info) => {
+    localStorage.setItem([chave], info);
+  };
+
+  handlerClick = async () => {
     const { email, nome } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(adicionaEmail(email));
     dispatch(adicionaNome(nome));
     this.setState({
       email: '',
       nome: '',
     });
+    const token = await dispatch(thunkToken());
+    this.saveInLocalStorage('token', token);
+    history.push('/game');
   };
 
   render() {
     const { nome, email, isDisabled } = this.state;
+    const { loading } = this.props;
     return (
       <div className="login-container">
         <img src={ triviaLogo } alt=" Logo Trivia" />
-        <div className="login-form">
-          <label>
-            <input
-              name="email"
-              type="email"
-              placeholder="Qual é o seu e-mail do gravatar?"
-              data-testid="input-gravatar-email"
-              value={ email }
-              onChange={ this.inputHandler }
-              autoComplete="off"
-            />
-          </label>
-          <label>
-            <input
-              name="nome"
-              type="text"
-              placeholder="Qual é o seu nome?"
-              data-testid="input-player-name"
-              value={ nome }
-              onChange={ this.inputHandler }
-              autoComplete="off"
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="btn-play"
-            onClick={ this.handlerClick }
-            disabled={ isDisabled }
-          >
-            Play
-          </button>
-        </div>
+        {
+          loading ? <Loading /> : (
+            <div className="login-form">
+              <label>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Qual é o seu e-mail do gravatar?"
+                  data-testid="input-gravatar-email"
+                  value={ email }
+                  onChange={ this.inputHandler }
+                  autoComplete="off"
+                />
+              </label>
+              <label>
+                <input
+                  name="nome"
+                  type="text"
+                  placeholder="Qual é o seu nome?"
+                  data-testid="input-player-name"
+                  value={ nome }
+                  onChange={ this.inputHandler }
+                  autoComplete="off"
+                />
+              </label>
+              <button
+                type="button"
+                data-testid="btn-play"
+                onClick={ this.handlerClick }
+                disabled={ isDisabled }
+              >
+                Play
+              </button>
+            </div>
+          )
+        }
         <img src={ iconeTrybe } alt="Ícone da Trybe" />
       </div>
     );
@@ -85,7 +98,15 @@ class TelaLogin extends React.Component {
 }
 
 TelaLogin.propTypes = {
+  loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-export default connect()(TelaLogin);
+const mapStateToProps = (globalState) => ({
+  email: globalState.loading,
+});
+
+export default connect(mapStateToProps)(TelaLogin);

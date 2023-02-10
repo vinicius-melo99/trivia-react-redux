@@ -1,10 +1,13 @@
 // ACTIONS TYPES
 export const SALVA_EMAIL = 'ADICIONA_EMAIL';
 export const SALVA_NOME = 'ADICIONA_NOME';
+export const FETCH_TOKEN = 'SOLICITA_TOKEN';
+export const FETCH_SUCESSO = 'SUCESSO_TOKEN';
+export const FETCH_ERRO = 'ERRO_TOKEN';
 export const SALVA_TOKEN = 'ADICIONA_TOKEN';
 
 // CONSTS
-const ENDPOINT_TOKE = 'https://opentdb.com/api_token.php?command=request';
+const ENDPOINT_TOKEN = 'https://opentdb.com/api_token.php?command=request';
 
 // ACTIONS CREATORS
 export const adicionaEmail = (email) => ({
@@ -17,13 +20,28 @@ export const adicionaNome = (nome) => ({
   payload: nome,
 });
 
-export const salvaToken = (token) => ({
-  type: SALVA_TOKEN,
+export const solicitaToken = () => ({
+  type: FETCH_TOKEN,
+});
+
+export const fetchSucesso = (token) => ({
+  type: FETCH_SUCESSO,
   payload: token,
 });
 
-export const solicitaToken = () => async (dispatch) => {
-  const result = await fetch(ENDPOINT_TOKE);
-  const data = await result.json();
-  return dispatch(salvaToken(data.token));
+export const fetchErro = (error) => ({
+  type: FETCH_ERRO,
+  payload: error,
+});
+
+export const thunkToken = () => async (dispatch) => {
+  try {
+    dispatch(solicitaToken());
+    const resposta = await fetch(ENDPOINT_TOKEN);
+    const arquivo = await resposta.json();
+    dispatch(fetchSucesso(arquivo.token));
+    return arquivo.token;
+  } catch (error) {
+    dispatch(fetchErro(error));
+  }
 };
