@@ -6,6 +6,7 @@ import './style/TelaLogin.css';
 import './style/TelaGame.css';
 import TelaLogin from './pages/TelaLogin';
 import TelaGame from './pages/TelaGame';
+import TelaConfiguracao from './pages/TelaConfiguracao';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       </header> */}
       <Switch>
         <Route path="/game" component={ TelaGame } />
+        <Route path="/configuracao" component={ TelaConfiguracao } />
         <Route exact path="/" component={ TelaLogin } />
       </Switch>
     </div>

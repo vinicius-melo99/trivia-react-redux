@@ -88,6 +88,17 @@ class TelaLogin extends React.Component {
               >
                 Play
               </button>
+
+              <button
+                data-testid="btn-settings"
+                type="button"
+                onClick={ () => {
+                  const { history } = this.props;
+                  history.push('/configuracao');
+                } }
+              >
+                Configurações
+              </button>
             </div>
           )
         }
