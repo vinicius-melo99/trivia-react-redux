@@ -5,6 +5,7 @@ export const FETCH_TOKEN = 'SOLICITA_TOKEN';
 export const FETCH_SUCESSO = 'SUCESSO_TOKEN';
 export const FETCH_ERRO = 'ERRO_TOKEN';
 export const SALVA_TOKEN = 'ADICIONA_TOKEN';
+export const FAZ_LOGOUT = 'FAZ_LOGOUT';
 
 // CONSTS
 const ENDPOINT_TOKEN = 'https://opentdb.com/api_token.php?command=request';
@@ -32,6 +33,10 @@ export const fetchSucesso = (token) => ({
 export const fetchErro = (error) => ({
   type: FETCH_ERRO,
   payload: error,
+});
+
+export const fazLogout = () => ({
+  type: FAZ_LOGOUT,
 });
 
 export const thunkToken = () => async (dispatch) => {
