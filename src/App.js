@@ -1,6 +1,7 @@
 import React from 'react';
 // import logo from './trivia.png';
 import './App.css';
+import './style/TelaLogin.css';
 import TelaLogin from './pages/TelaLogin';
 
 export default function App() {
