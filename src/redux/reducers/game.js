@@ -2,6 +2,7 @@ import {
   FETCH_TOKEN,
   FETCH_TOKEN_SUCESSO,
   FETCH_TOKEN_ERRO,
+  FAZ_LOGOUT,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -28,6 +29,12 @@ const game = (state = INITIAL_STATE, action) => {
       ...state,
       loading: false,
       error: action.payload,
+    };
+  case FAZ_LOGOUT:
+    return {
+      ranking: [],
+      token: '',
+      loading: false,
     };
   default:
     return state;

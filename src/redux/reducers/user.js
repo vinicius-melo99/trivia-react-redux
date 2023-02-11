@@ -1,4 +1,7 @@
-import { SALVA_EMAIL, SALVA_NOME } from '../actions';
+import {
+  SALVA_EMAIL,
+  SALVA_NOME,
+  FAZ_LOGOUT } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -17,6 +20,11 @@ const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       nome: action.payload,
+    };
+  case FAZ_LOGOUT:
+    return {
+      nome: '',
+      email: '',
     };
   default:
     return state;
