@@ -4,21 +4,21 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import './style/TelaLogin.css';
 import './style/TelaGame.css';
-import TelaLogin from './pages/TelaLogin';
+import Login from './pages/Login';
 import TelaGame from './pages/TelaGame';
 import TelaConfiguracao from './pages/TelaConfiguracao';
 
-export default function App() {
-  return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-      </header> */}
+class App extends React.Component {
+  render() {
+    return (
       <Switch>
-        <Route path="/game" component={ TelaGame } />
-        <Route path="/configuracao" component={ TelaConfiguracao } />
-        <Route exact path="/" component={ TelaLogin } />
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/game" component={ TelaGame } />
+        <Route exact path="/configuracao" component={ TelaConfiguracao } />
       </Switch>
-    </div>
-  );
+
+    );
+  }
 }
+
+export default App;
