@@ -1,0 +1,36 @@
+.header-container {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 150px;
+  height: 150px;
+  justify-content: right;
+  width: 100vw;
+}
+
+.avatar {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  width: 350px;
+}
+
+.avatar img {
+  border-radius: 100px;
+  height: 60px;
+  width: 60px;
+}
+
+.score {
+  display: flex;
+  gap: 30px;
+}
+
+.congig-button {
+  background-image: url('../images/configuração.png');
+  height: 32px;
+  width: 23px;
+}
+

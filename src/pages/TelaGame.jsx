@@ -5,6 +5,7 @@ import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
 import { fazLogout } from '../redux/actions';
+import Header from '../components/Header';
 
 class TelaGame extends PureComponent {
   state = {
@@ -65,6 +66,7 @@ class TelaGame extends PureComponent {
       .embaralharRespostas(incorrectAnswers, correctAnswer);
     return (
       <div className="game-container">
+        <Header />
         <div className="main-frame">
           <h2 data-testid="question-category">{ category }</h2>
           <h2 data-testid="question-text">{ question }</h2>
