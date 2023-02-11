@@ -10,6 +10,9 @@ import Header from '../components/Header';
 class TelaGame extends PureComponent {
   state = {
     perguntas: [],
+    respostasEmbaralhadas: [],
+    category: '',
+    question: '',
     isLoading: false,
     indexPergunta: 0,
   };
@@ -27,7 +30,10 @@ class TelaGame extends PureComponent {
       localStorage.setItem('token', '');
       history.push('/');
     } else {
-      this.setState({ isLoading: false, perguntas: results });
+      this.setState(
+        { isLoading: false, perguntas: results },
+        this.obterRespostas,
+      );
     }
   }
 
@@ -35,7 +41,6 @@ class TelaGame extends PureComponent {
     const SORTEADOR = 0.5;
     const ordemEmbaralhada = [...sortearOrdem].sort(() => Math.random() - SORTEADOR);
     return ordemEmbaralhada;
-    // console.log(ordemEmbaralhada);
   };
 
   embaralharRespostas = (respostasErradas, respostaCerta) => {
@@ -52,11 +57,8 @@ class TelaGame extends PureComponent {
     return this.sortearOrdem(todasRespostas);
   };
 
-  render() {
-    const { isLoading, perguntas, indexPergunta } = this.state;
-    if (isLoading || perguntas.length === 0) return <Loading />;
-    console.log(perguntas);
-
+  obterRespostas = () => {
+    const { perguntas, indexPergunta } = this.state;
     const {
       category,
       question,
@@ -64,6 +66,23 @@ class TelaGame extends PureComponent {
       correct_answer: correctAnswer } = perguntas[indexPergunta];
     const respostasEmbaralhadas = this
       .embaralharRespostas(incorrectAnswers, correctAnswer);
+
+    this.setState({
+      category,
+      question,
+      respostasEmbaralhadas,
+    });
+  };
+
+  render() {
+    const {
+      isLoading,
+      respostasEmbaralhadas,
+      category,
+      question,
+    } = this.state;
+    if (isLoading || respostasEmbaralhadas.length === 0) return <Loading />;
+
     return (
       <div className="game-container">
         <Header />
