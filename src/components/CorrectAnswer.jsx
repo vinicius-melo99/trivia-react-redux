@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import '../style/TelaGame.css';
+import { connect } from 'react-redux';
 
-export default class CorrectAnswer extends Component {
+class CorrectAnswer extends Component {
   selectCSS = () => {
     const btnCorrect = document.querySelector('#defaultCorrect');
     const btnWrong = document.querySelectorAll('#defaultWrong');
@@ -13,13 +14,14 @@ export default class CorrectAnswer extends Component {
   };
 
   render() {
-    const { resposta } = this.props;
+    const { resposta, disableButtons } = this.props;
     return (
       <button
         type="button"
         data-testid="correct-answer"
         onClick={ () => (this.selectCSS()) }
         id="defaultCorrect"
+        disabled={ disableButtons }
       >
         { resposta }
       </button>
@@ -29,4 +31,14 @@ export default class CorrectAnswer extends Component {
 
 CorrectAnswer.propTypes = {
   resposta: PropTypes.string.isRequired,
+  disableButtons: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (globalState) => {
+  const { game: { disableButtons } } = globalState;
+  return {
+    disableButtons,
+  };
+};
+
+export default connect(mapStateToProps)(CorrectAnswer);

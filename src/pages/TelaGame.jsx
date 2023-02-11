@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
-import { fazLogout } from '../redux/actions';
+import { fazLogout, desativaBotoes } from '../redux/actions';
 import Header from '../components/Header';
 
 class TelaGame extends PureComponent {
   state = {
     perguntas: [],
+    indexPergunta: 0,
     respostasEmbaralhadas: [],
     category: '',
     question: '',
     isLoading: false,
-    indexPergunta: 0,
+    timer: 30,
   };
 
   async componentDidMount() {
@@ -72,6 +73,26 @@ class TelaGame extends PureComponent {
       question,
       respostasEmbaralhadas,
     });
+    this.iniciaTimer();
+  };
+
+  verificaTempo = () => {
+    const { timer } = this.state;
+    if (timer === 0) {
+      const { dispatch } = this.props;
+      clearInterval(global.timer);
+      dispatch(desativaBotoes());
+    }
+  };
+
+  iniciaTimer = () => {
+    const ONE_SECOND = 1000;
+
+    global.timer = setInterval(() => {
+      this.setState((state) => ({
+        timer: state.timer - 1,
+      }), this.verificaTempo);
+    }, ONE_SECOND);
   };
 
   render() {
@@ -80,6 +101,7 @@ class TelaGame extends PureComponent {
       respostasEmbaralhadas,
       category,
       question,
+      timer,
     } = this.state;
     if (isLoading || respostasEmbaralhadas.length === 0) return <Loading />;
 
@@ -90,6 +112,7 @@ class TelaGame extends PureComponent {
           <h2 data-testid="question-category">{ category }</h2>
           <h2 data-testid="question-text">{ question }</h2>
           <Respostas respostasEmbaralhadas={ respostasEmbaralhadas } />
+          <h2>{ timer }</h2>
         </div>
       </div>
     );
