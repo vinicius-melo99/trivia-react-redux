@@ -2,13 +2,12 @@
 export const SALVA_EMAIL = 'ADICIONA_EMAIL';
 export const SALVA_NOME = 'ADICIONA_NOME';
 export const FETCH_TOKEN = 'SOLICITA_TOKEN';
-export const FETCH_SUCESSO = 'SUCESSO_TOKEN';
-export const FETCH_ERRO = 'ERRO_TOKEN';
-export const SALVA_TOKEN = 'ADICIONA_TOKEN';
+export const FETCH_TOKEN_SUCESSO = 'SUCESSO_TOKEN';
+export const FETCH_TOKEN_ERRO = 'ERRO_TOKEN';
+// export const SALVA_TOKEN = 'ADICIONA_TOKEN';
 
 // CONSTS
 const ENDPOINT_TOKEN = 'https://opentdb.com/api_token.php?command=request';
-
 // ACTIONS CREATORS
 export const adicionaEmail = (email) => ({
   type: SALVA_EMAIL,
@@ -25,12 +24,12 @@ export const solicitaToken = () => ({
 });
 
 export const fetchSucesso = (token) => ({
-  type: FETCH_SUCESSO,
+  type: FETCH_TOKEN_SUCESSO,
   payload: token,
 });
 
 export const fetchErro = (error) => ({
-  type: FETCH_ERRO,
+  type: FETCH_TOKEN_ERRO,
   payload: error,
 });
 

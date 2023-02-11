@@ -1,15 +1,14 @@
 import {
   FETCH_TOKEN,
-  FETCH_SUCESSO,
-  FETCH_ERRO,
+  FETCH_TOKEN_SUCESSO,
+  FETCH_TOKEN_ERRO,
 } from '../actions';
 
 const INITIAL_STATE = {
-  game: {
-    ranking: [],
-    token: '',
-    loading: false,
-  },
+  ranking: [],
+  token: '',
+  loading: false,
+
 };
 const game = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,13 +17,13 @@ const game = (state = INITIAL_STATE, action) => {
       ...state,
       loading: true,
     };
-  case FETCH_SUCESSO:
+  case FETCH_TOKEN_SUCESSO:
     return {
       ...state,
       loading: false,
       token: action.payload,
     };
-  case FETCH_ERRO:
+  case FETCH_TOKEN_ERRO:
     return {
       ...state,
       loading: false,

@@ -1,10 +1,9 @@
 import { SALVA_EMAIL, SALVA_NOME } from '../actions';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    nome: '',
-  },
+  email: '',
+  nome: '',
+  score: 0,
 };
 
 const user = (state = INITIAL_STATE, action) => {

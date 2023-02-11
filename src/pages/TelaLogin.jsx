@@ -56,7 +56,7 @@ class TelaLogin extends React.Component {
       <div className="login-container">
         <img src={ triviaLogo } alt=" Logo Trivia" />
         {
-          loading ? <Loading /> : (
+          loading === true ? <Loading /> : (
             <div className="login-form">
               <label>
                 <input
@@ -117,7 +117,7 @@ TelaLogin.propTypes = {
 };
 
 const mapStateToProps = (globalState) => ({
-  email: globalState.loading,
+  loading: globalState.game.loading,
 });
 
 export default connect(mapStateToProps)(TelaLogin);
