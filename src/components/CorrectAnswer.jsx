@@ -4,22 +4,25 @@ import '../style/TelaGame.css';
 import { connect } from 'react-redux';
 
 class CorrectAnswer extends Component {
-  selectCSS = () => {
+  selectCSS = ({ target: { name } }) => {
     const btnCorrect = document.querySelector('#defaultCorrect');
     const btnWrong = document.querySelectorAll('#defaultWrong');
+    const { verificaCorreta } = this.props;
     btnCorrect.className = 'correct-answer';
     btnWrong.forEach((btn) => {
       btn.className = 'wrong-answer';
     });
+    verificaCorreta(name);
   };
 
   render() {
     const { resposta, disableButtons } = this.props;
     return (
       <button
+        name={ resposta }
         type="button"
         data-testid="correct-answer"
-        onClick={ () => (this.selectCSS()) }
+        onClick={ this.selectCSS }
         id="defaultCorrect"
         disabled={ disableButtons }
       >
@@ -32,6 +35,7 @@ class CorrectAnswer extends Component {
 CorrectAnswer.propTypes = {
   resposta: PropTypes.string.isRequired,
   disableButtons: PropTypes.bool.isRequired,
+  verificaCorreta: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (globalState) => {

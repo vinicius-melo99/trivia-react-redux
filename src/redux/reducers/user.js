@@ -6,7 +6,6 @@ import {
 const INITIAL_STATE = {
   email: '',
   nome: '',
-  score: 0,
 };
 
 const user = (state = INITIAL_STATE, action) => {

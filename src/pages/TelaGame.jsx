@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
-import { fazLogout, desativaBotoes } from '../redux/actions';
+import { fazLogout, desativaBotoes, adicionaPlacar } from '../redux/actions';
 import Header from '../components/Header';
 
 class TelaGame extends PureComponent {
@@ -16,6 +16,8 @@ class TelaGame extends PureComponent {
     question: '',
     isLoading: false,
     timer: 30,
+    respostaCorreta: '',
+    difficulty: '',
   };
 
   async componentDidMount() {
@@ -61,6 +63,7 @@ class TelaGame extends PureComponent {
   obterRespostas = () => {
     const { perguntas, indexPergunta } = this.state;
     const {
+      difficulty,
       category,
       question,
       incorrect_answers: incorrectAnswers,
@@ -69,9 +72,11 @@ class TelaGame extends PureComponent {
       .embaralharRespostas(incorrectAnswers, correctAnswer);
 
     this.setState({
+      difficulty,
       category,
       question,
       respostasEmbaralhadas,
+      respostaCorreta: correctAnswer,
     });
     this.iniciaTimer();
   };
@@ -95,6 +100,31 @@ class TelaGame extends PureComponent {
     }, ONE_SECOND);
   };
 
+  verificaCorreta = (resposta) => {
+    const { respostaCorreta, timer, difficulty } = this.state;
+    const { dispatch } = this.props;
+    let difficultyNumber = 0;
+    const tres = 3;
+    switch (difficulty) {
+    case 'easy':
+      difficultyNumber = 1;
+      break;
+    case 'medium':
+      difficultyNumber = 2;
+      break;
+    case 'hard':
+      difficultyNumber = tres;
+      break;
+    default:
+      break;
+    }
+    const questionPoint = 10;
+    if (resposta === respostaCorreta) {
+      const currentScore = questionPoint * (difficultyNumber * timer);
+      dispatch(adicionaPlacar(currentScore));
+    }
+  };
+
   render() {
     const {
       isLoading,
@@ -111,7 +141,10 @@ class TelaGame extends PureComponent {
         <div className="main-frame">
           <h2 data-testid="question-category">{ category }</h2>
           <h2 data-testid="question-text">{ question }</h2>
-          <Respostas respostasEmbaralhadas={ respostasEmbaralhadas } />
+          <Respostas
+            verificaCorreta={ this.verificaCorreta }
+            respostasEmbaralhadas={ respostasEmbaralhadas }
+          />
           <h2>{ timer }</h2>
         </div>
       </div>

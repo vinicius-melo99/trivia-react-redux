@@ -5,7 +5,7 @@ import WrongAnswer from './WrongAnswer';
 
 class Respostas extends Component {
   render() {
-    const { respostasEmbaralhadas } = this.props;
+    const { respostasEmbaralhadas, verificaCorreta } = this.props;
     return (
       <div data-testid="answer-options">
         { respostasEmbaralhadas.map(({ indexTestId, resposta, errada }) => (
@@ -13,10 +13,12 @@ class Respostas extends Component {
             key={ indexTestId }
             indexTestId={ indexTestId }
             resposta={ resposta }
+            verificaCorreta={ verificaCorreta }
           /> : <CorrectAnswer
             key={ indexTestId }
             indexTestId={ indexTestId }
             resposta={ resposta }
+            verificaCorreta={ verificaCorreta }
           />
         )) }
       </div>
@@ -28,4 +30,5 @@ export default Respostas;
 
 Respostas.propTypes = {
   respostasEmbaralhadas: PropTypes.instanceOf(Array).isRequired,
+  verificaCorreta: PropTypes.func.isRequired,
 };
