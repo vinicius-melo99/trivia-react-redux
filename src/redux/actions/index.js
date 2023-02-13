@@ -7,6 +7,7 @@ export const FETCH_TOKEN_ERRO = 'ERRO_TOKEN';
 // export const SALVA_TOKEN = 'ADICIONA_TOKEN';
 export const FAZ_LOGOUT = 'FAZ_LOGOUT';
 export const DESATIVA_BOTOES = 'DESATIVA_BOTOES';
+export const ATIVA_BOTOES = 'ATIVA_BOTOES';
 export const SALVA_PLACAR = 'ADICIONA_PLACAR';
 export const SALVA_CORRETAS = 'ADICIONA_CORRETAS';
 
@@ -43,6 +44,10 @@ export const fazLogout = () => ({
 
 export const desativaBotoes = () => ({
   type: DESATIVA_BOTOES,
+});
+
+export const ativaBotoes = () => ({
+  type: ATIVA_BOTOES,
 });
 
 export const thunkToken = () => async (dispatch) => {

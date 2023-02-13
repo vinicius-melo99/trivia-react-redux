@@ -4,7 +4,7 @@ import '../style/TelaGame.css';
 import { connect } from 'react-redux';
 
 class CorrectAnswer extends Component {
-  selectCSS = ({ target: { name } }) => {
+  perguntaColor = ({ target: { name } }) => {
     const btnCorrect = document.querySelector('#defaultCorrect');
     const btnWrong = document.querySelectorAll('#defaultWrong');
     const { verificaCorreta } = this.props;
@@ -22,7 +22,7 @@ class CorrectAnswer extends Component {
         name={ resposta }
         type="button"
         data-testid="correct-answer"
-        onClick={ this.selectCSS }
+        onClick={ this.perguntaColor }
         id="defaultCorrect"
         disabled={ disableButtons }
       >

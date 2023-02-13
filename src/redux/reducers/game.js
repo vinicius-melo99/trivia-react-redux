@@ -4,6 +4,7 @@ import {
   FETCH_TOKEN_ERRO,
   FAZ_LOGOUT,
   DESATIVA_BOTOES,
+  ATIVA_BOTOES,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -35,6 +36,11 @@ const game = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       disableButtons: true,
+    };
+  case ATIVA_BOTOES:
+    return {
+      ...state,
+      disableButtons: false,
     };
   case FAZ_LOGOUT:
     return {

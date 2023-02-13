@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
-import { fazLogout, desativaBotoes, adicionaPlacar } from '../redux/actions';
+import { fazLogout, desativaBotoes, adicionaPlacar, ativaBotoes } from '../redux/actions';
 import Header from '../components/Header';
 
 class TelaGame extends PureComponent {
@@ -18,6 +18,8 @@ class TelaGame extends PureComponent {
     timer: 30,
     respostaCorreta: '',
     difficulty: '',
+    showNext: false,
+    isDisable: false,
   };
 
   async componentDidMount() {
@@ -101,8 +103,11 @@ class TelaGame extends PureComponent {
   };
 
   verificaCorreta = (resposta) => {
-    const { respostaCorreta, timer, difficulty } = this.state;
     const { dispatch } = this.props;
+    this.setState({ showNext: true });
+    clearInterval(global.timer);
+    dispatch(desativaBotoes());
+    const { respostaCorreta, timer, difficulty } = this.state;
     let difficultyNumber = 0;
     const tres = 3;
     switch (difficulty) {
@@ -125,6 +130,33 @@ class TelaGame extends PureComponent {
     }
   };
 
+  removeColorPergunta = () => {
+    const btnCorrect = document.querySelector('#defaultCorrect');
+    const btnWrong = document.querySelectorAll('#defaultWrong');
+    btnCorrect.className = '';
+    btnWrong.forEach((btn) => {
+      btn.className = '';
+    });
+  };
+
+  proximaPergunta = () => {
+    const ultimoIndex = 4;
+    const { dispatch, history } = this.props;
+    this.setState({ showNext: false, timer: 30 });
+    const { indexPergunta } = this.state;
+    if (indexPergunta === ultimoIndex) {
+      history.push('/feedbackpage');
+    }
+    dispatch(ativaBotoes());
+    this.removeColorPergunta();
+    this.setState(
+      {
+        indexPergunta: indexPergunta + 1,
+      },
+      this.obterRespostas,
+    );
+  };
+
   render() {
     const {
       isLoading,
@@ -132,6 +164,8 @@ class TelaGame extends PureComponent {
       category,
       question,
       timer,
+      showNext,
+      isDisable,
     } = this.state;
     if (isLoading || respostasEmbaralhadas.length === 0) return <Loading />;
 
@@ -147,6 +181,18 @@ class TelaGame extends PureComponent {
           />
           <h2>{ timer }</h2>
         </div>
+        {
+          showNext
+        && (
+          <button
+            type="button"
+            onClick={ this.proximaPergunta }
+            data-testid="btn-next"
+            disabled={ isDisable }
+          >
+            Next
+          </button>)
+        }
       </div>
     );
   }
