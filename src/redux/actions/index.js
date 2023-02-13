@@ -7,6 +7,8 @@ export const FETCH_TOKEN_ERRO = 'ERRO_TOKEN';
 // export const SALVA_TOKEN = 'ADICIONA_TOKEN';
 export const FAZ_LOGOUT = 'FAZ_LOGOUT';
 export const DESATIVA_BOTOES = 'DESATIVA_BOTOES';
+export const SALVA_PLACAR = 'ADICIONA_PLACAR';
+export const SALVA_CORRETAS = 'ADICIONA_CORRETAS';
 
 // CONSTS
 const ENDPOINT_TOKEN = 'https://opentdb.com/api_token.php?command=request';
@@ -54,3 +56,8 @@ export const thunkToken = () => async (dispatch) => {
     dispatch(fetchErro(error));
   }
 };
+
+export const adicionaPlacar = (payload) => ({
+  type: SALVA_PLACAR,
+  payload,
+});
