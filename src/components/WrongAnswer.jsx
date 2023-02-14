@@ -18,17 +18,16 @@ class WrongAnswer extends Component {
   render() {
     const { indexTestId, resposta, disableButtons } = this.props;
     return (
-      <li className="answer-option">
-        <button
-          name={ resposta }
-          data-testid={ `wrong-answer-${indexTestId}` }
-          onClick={ this.selectCSS }
-          id="defaultWrong"
-          disabled={ disableButtons }
-        >
-          { resposta }
-        </button>
-      </li>
+      <button
+        className="answer-option"
+        name={ resposta }
+        data-testid={ `wrong-answer-${indexTestId}` }
+        onClick={ this.selectCSS }
+        id="defaultWrong"
+        disabled={ disableButtons }
+      >
+        { resposta }
+      </button>
     );
   }
 }

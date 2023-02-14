@@ -18,18 +18,17 @@ class CorrectAnswer extends Component {
   render() {
     const { resposta, disableButtons } = this.props;
     return (
-      <li className="answer-option">
-        <button
-          name={ resposta }
-          type="button"
-          data-testid="correct-answer"
-          onClick={ this.perguntaColor }
-          id="defaultCorrect"
-          disabled={ disableButtons }
-        >
-          { resposta }
-        </button>
-      </li>
+      <button
+        className="answer-option"
+        name={ resposta }
+        type="button"
+        data-testid="correct-answer"
+        onClick={ this.perguntaColor }
+        id="defaultCorrect"
+        disabled={ disableButtons }
+      >
+        { resposta }
+      </button>
     );
   }
 }
