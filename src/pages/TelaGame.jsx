@@ -138,9 +138,9 @@ class TelaGame extends PureComponent {
   removeColorPergunta = () => {
     const btnCorrect = document.querySelector('#defaultCorrect');
     const btnWrong = document.querySelectorAll('#defaultWrong');
-    btnCorrect.className = '';
+    btnCorrect.className = 'answer-option';
     btnWrong.forEach((btn) => {
-      btn.className = '';
+      btn.className = 'answer-option';
     });
   };
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import '../style/FeedbackPage.css';
 import { generateHash } from '../utils.js/emailHash';
 
@@ -38,6 +38,19 @@ class FeedbackPage extends Component {
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question">{assertions}</p>
         </div>
+        <h1 data-testid="feedback-text">Feedback</h1>
+        <div>
+          <button
+            data-testid="btn-ranking"
+            type="button"
+            onClick={ () => {
+              const { history } = this.props;
+              history.push('/ranking');
+            } }
+          >
+            Ranking
+          </button>
+        </div>
       </div>
     );
   }
@@ -47,6 +60,12 @@ FeedbackPage.propTypes = {
   nome: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
+};
+
+FeedbackPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (globalState) => ({
