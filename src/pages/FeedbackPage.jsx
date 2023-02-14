@@ -16,7 +16,7 @@ class FeedbackPage extends Component {
   };
 
   render() {
-    const { email, nome, score } = this.props;
+    const { email, nome, score, assertions } = this.props;
     const HASH = generateHash(email);
     return (
       <div className="feedback-frame">
@@ -34,6 +34,10 @@ class FeedbackPage extends Component {
         <p data-testid="feedback-text">
           { this.feedbackMessage() }
         </p>
+        <div className="final-score">
+          <p data-testid="feedback-total-score">{score}</p>
+          <p data-testid="feedback-total-question">{assertions}</p>
+        </div>
       </div>
     );
   }
