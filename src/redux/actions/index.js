@@ -10,6 +10,7 @@ export const DESATIVA_BOTOES = 'DESATIVA_BOTOES';
 export const ATIVA_BOTOES = 'ATIVA_BOTOES';
 export const SALVA_PLACAR = 'ADICIONA_PLACAR';
 export const SALVA_CORRETAS = 'ADICIONA_CORRETAS';
+export const SALVA_ACERTOS = 'ADICIONA_ACERTOS';
 
 // CONSTS
 const ENDPOINT_TOKEN = 'https://opentdb.com/api_token.php?command=request';
@@ -64,5 +65,10 @@ export const thunkToken = () => async (dispatch) => {
 
 export const adicionaPlacar = (payload) => ({
   type: SALVA_PLACAR,
+  payload,
+});
+
+export const adicionaAcertos = (payload) => ({
+  type: SALVA_ACERTOS,
   payload,
 });

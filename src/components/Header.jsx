@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import '../style/Header.css';
 import { generateHash } from '../utils.js/emailHash';
-// import iconButton from '../images/setup-icon.png';
+import star from '../images/star.png';
 
 class Header extends Component {
   render() {
@@ -23,14 +22,17 @@ class Header extends Component {
           </h3>
         </div>
         <div className="score">
+          <img src={ star } alt="star-icon" />
           <h3>Pontos: </h3>
           <h3 data-testid="header-score">
             {score}
           </h3>
         </div>
-        <button className="config-button">
-          Configurações
-        </button>
+        <button
+          type="button"
+          aria-label="settings"
+          className="icon-settings"
+        />
       </header>
 
     );

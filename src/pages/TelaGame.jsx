@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
-import { fazLogout, desativaBotoes, adicionaPlacar, ativaBotoes } from '../redux/actions';
+import {
+  fazLogout,
+  desativaBotoes, adicionaPlacar, ativaBotoes, adicionaAcertos } from '../redux/actions';
 import Header from '../components/Header';
+import Timer from '../components/Timer';
+import triviaLogo from '../images/logo_trivia.png';
 
 class TelaGame extends PureComponent {
   state = {
@@ -126,16 +130,17 @@ class TelaGame extends PureComponent {
     const questionPoint = 10;
     if (resposta === respostaCorreta) {
       const currentScore = questionPoint * (difficultyNumber * timer);
-      dispatch(adicionaPlacar(currentScore));
+      dispatch(adicionaPlacar(Number(currentScore)));
+      dispatch(adicionaAcertos(1));
     }
   };
 
   removeColorPergunta = () => {
     const btnCorrect = document.querySelector('#defaultCorrect');
     const btnWrong = document.querySelectorAll('#defaultWrong');
-    btnCorrect.className = '';
+    btnCorrect.className = 'answer-option';
     btnWrong.forEach((btn) => {
-      btn.className = '';
+      btn.className = 'answer-option';
     });
   };
 
@@ -168,18 +173,26 @@ class TelaGame extends PureComponent {
       isDisable,
     } = this.state;
     if (isLoading || respostasEmbaralhadas.length === 0) return <Loading />;
-
     return (
       <div className="game-container">
         <Header />
+        <img className="trivia-logo" src={ triviaLogo } alt="trivia-logo" />
         <div className="main-frame">
-          <h2 data-testid="question-category">{ category }</h2>
-          <h2 data-testid="question-text">{ question }</h2>
-          <Respostas
-            verificaCorreta={ this.verificaCorreta }
-            respostasEmbaralhadas={ respostasEmbaralhadas }
-          />
-          <h2>{ timer }</h2>
+          <div className="question-frame">
+            <div className="category">
+              <h2 data-testid="question-category">{ category }</h2>
+            </div>
+            <div className="question">
+              <p data-testid="question-text">{ question }</p>
+              <Timer timer={ timer } />
+            </div>
+          </div>
+          <div className="answers-frame">
+            <Respostas
+              verificaCorreta={ this.verificaCorreta }
+              respostasEmbaralhadas={ respostasEmbaralhadas }
+            />
+          </div>
         </div>
         {
           showNext
@@ -189,8 +202,9 @@ class TelaGame extends PureComponent {
             onClick={ this.proximaPergunta }
             data-testid="btn-next"
             disabled={ isDisable }
+            className="next-button"
           >
-            Next
+            NEXT
           </button>)
         }
       </div>
