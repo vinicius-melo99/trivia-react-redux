@@ -7,6 +7,13 @@
   width: 100vw;
 }
 
+.trivia-logo {
+  left: 300px;
+  position: absolute;
+  top: 70px;
+  width: 197px;
+}
+
 .main-frame {
   align-items: center;
   background-color: inherit;
@@ -14,12 +21,84 @@
   box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 30px;
   height: 650px;
   justify-content: center;
   width: 100%;
 }
 
+.question-frame {
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: start;
+  width: 450px;
+}
+
+.category {
+  background-color: orange;
+  border-radius: 50px;
+  color: white;
+  font-size: 1em;
+  position: absolute;
+  text-align: center;
+  top: 285px;
+  width: 400px;
+}
+
+.answers-frame {
+  align-items: center;
+  background-color: inherit;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  justify-content: center;
+  width: 500px;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: upper-latin;
+}
+
+.answer-option button {
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1.2em;
+  height: 50px;
+  width: 400px;
+}
+
+.category h2 {
+  font-weight: 300;
+}
+
+.question {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+}
+
+.timer {
+  align-items: baseline;
+  color: #ea5d5d;
+  display: flex;
+  gap: 10px;
+}
 
 .correct-answer {
   border: 3px solid rgb(6, 240, 15);
@@ -27,4 +106,20 @@
 
 .wrong-answer {
   border: 3px solid red;
+}
+
+.next-button {
+  background-color: #2fc18c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 45px;
+  width: 520px;
+}
+
+.next-button:hover {
+  background-color: #68ef07;
+  font-weight: 800;
 }

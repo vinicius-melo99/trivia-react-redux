@@ -7,7 +7,7 @@ class Respostas extends Component {
   render() {
     const { respostasEmbaralhadas, verificaCorreta } = this.props;
     return (
-      <div data-testid="answer-options">
+      <ul className="answers" data-testid="answer-options">
         { respostasEmbaralhadas.map(({ indexTestId, resposta, errada }) => (
           errada ? <WrongAnswer
             key={ indexTestId }
@@ -21,7 +21,7 @@ class Respostas extends Component {
             verificaCorreta={ verificaCorreta }
           />
         )) }
-      </div>
+      </ul>
     );
   }
 }

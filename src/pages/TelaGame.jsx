@@ -8,6 +8,8 @@ import {
   fazLogout,
   desativaBotoes, adicionaPlacar, ativaBotoes, adicionaAcertos } from '../redux/actions';
 import Header from '../components/Header';
+import Timer from '../components/Timer';
+import triviaLogo from '../images/logo_trivia.png';
 
 class TelaGame extends PureComponent {
   state = {
@@ -171,18 +173,26 @@ class TelaGame extends PureComponent {
       isDisable,
     } = this.state;
     if (isLoading || respostasEmbaralhadas.length === 0) return <Loading />;
-
     return (
       <div className="game-container">
         <Header />
+        <img className="trivia-logo" src={ triviaLogo } alt="trivia-logo" />
         <div className="main-frame">
-          <h2 data-testid="question-category">{ category }</h2>
-          <h2 data-testid="question-text">{ question }</h2>
-          <Respostas
-            verificaCorreta={ this.verificaCorreta }
-            respostasEmbaralhadas={ respostasEmbaralhadas }
-          />
-          <h2>{ timer }</h2>
+          <div className="question-frame">
+            <div className="category">
+              <h2 data-testid="question-category">{ category }</h2>
+            </div>
+            <div className="question">
+              <p data-testid="question-text">{ question }</p>
+              <Timer timer={ timer } />
+            </div>
+          </div>
+          <div className="answers-frame">
+            <Respostas
+              verificaCorreta={ this.verificaCorreta }
+              respostasEmbaralhadas={ respostasEmbaralhadas }
+            />
+          </div>
         </div>
         {
           showNext
@@ -192,8 +202,9 @@ class TelaGame extends PureComponent {
             onClick={ this.proximaPergunta }
             data-testid="btn-next"
             disabled={ isDisable }
+            className="next-button"
           >
-            Next
+            NEXT
           </button>)
         }
       </div>

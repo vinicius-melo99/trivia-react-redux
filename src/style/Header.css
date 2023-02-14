@@ -3,7 +3,7 @@
   background-color: white;
   display: flex;
   flex-direction: row;
-  gap: 150px;
+  gap: 30px;
   height: 150px;
   justify-content: right;
   width: 100vw;
@@ -18,19 +18,44 @@
 }
 
 .avatar img {
+  border: 2px rgb(112, 4, 219) solid;
   border-radius: 100px;
-  height: 60px;
-  width: 60px;
+  height: 100px;
+  width: 100px;
+}
+
+.avatar h3 {
+  font-weight: 300;
+}
+
+.score img {
+  height: 30px;
+  width: 30px;
 }
 
 .score {
+  align-items: center;
   display: flex;
-  gap: 30px;
+  flex-direction: row;
+  gap: 10px;
 }
 
-.congig-button {
+.score h3 {
+  font-weight: 300;
+  margin-top: 25px;
+}
+
+.icon-settings {
+  background-color: inherit;
   background-image: url('../images/configuração.png');
-  height: 32px;
-  width: 23px;
+  background-size: cover;
+  border: none;
+  height: 40px;
+  margin-right: 20px;
+  width: 40px;
+}
+
+.icon-settings:hover {
+  cursor: pointer;
 }
 
