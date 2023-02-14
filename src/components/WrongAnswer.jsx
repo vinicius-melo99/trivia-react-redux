@@ -19,6 +19,7 @@ class WrongAnswer extends Component {
     const { indexTestId, resposta, disableButtons } = this.props;
     return (
       <button
+        className="answer-option"
         name={ resposta }
         data-testid={ `wrong-answer-${indexTestId}` }
         onClick={ this.selectCSS }
