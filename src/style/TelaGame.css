@@ -135,3 +135,19 @@
   background-color: #68ef07;
   font-weight: 800;
 }
+
+.next-button {
+  background-color: #2fc18c;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 45px;
+  width: 520px;
+}
+
+.next-button:hover {
+  background-color: #68ef07;
+  font-weight: 800;
+}

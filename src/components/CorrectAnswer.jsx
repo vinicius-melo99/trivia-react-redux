@@ -19,6 +19,7 @@ class CorrectAnswer extends Component {
     const { resposta, disableButtons } = this.props;
     return (
       <button
+        className="answer-option"
         name={ resposta }
         type="button"
         data-testid="correct-answer"
