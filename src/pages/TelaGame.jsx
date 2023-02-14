@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import fetchTriviaApi from '../helpers/fetchTriviaApi';
 import Loading from '../components/Loading';
 import Respostas from '../components/Respostas';
-import { fazLogout, desativaBotoes, adicionaPlacar, ativaBotoes } from '../redux/actions';
+import {
+  fazLogout,
+  desativaBotoes, adicionaPlacar, ativaBotoes, adicionaAcertos } from '../redux/actions';
 import Header from '../components/Header';
 
 class TelaGame extends PureComponent {
@@ -126,7 +128,8 @@ class TelaGame extends PureComponent {
     const questionPoint = 10;
     if (resposta === respostaCorreta) {
       const currentScore = questionPoint * (difficultyNumber * timer);
-      dispatch(adicionaPlacar(currentScore));
+      dispatch(adicionaPlacar(Number(currentScore)));
+      dispatch(adicionaAcertos(1));
     }
   };
 
