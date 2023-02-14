@@ -15,6 +15,11 @@ class FeedbackPage extends Component {
     return 'Could be better...';
   };
 
+  playAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
   render() {
     const { email, nome, score, assertions } = this.props;
     const HASH = generateHash(email);
@@ -50,6 +55,13 @@ class FeedbackPage extends Component {
           >
             Ranking
           </button>
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.playAgain }
+          >
+            Play Again
+          </button>
         </div>
       </div>
     );
@@ -64,7 +76,7 @@ FeedbackPage.propTypes = {
 
 FeedbackPage.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func,
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
