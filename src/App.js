@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import './style/TelaLogin.css';
 import './style/TelaGame.css';
+import './style/TelaRanking.css';
 import Login from './pages/Login';
 import TelaGame from './pages/TelaGame';
 import TelaConfiguracao from './pages/TelaConfiguracao';

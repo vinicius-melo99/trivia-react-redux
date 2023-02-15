@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../style/FeedbackPage.css';
 import { generateHash } from '../utils.js/emailHash';
+import { fazLogout } from '../redux/actions';
 
 class FeedbackPage extends Component {
   feedbackMessage = () => {
@@ -16,8 +17,9 @@ class FeedbackPage extends Component {
   };
 
   playAgain = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     history.push('/');
+    dispatch(fazLogout());
   };
 
   render() {
@@ -78,6 +80,7 @@ FeedbackPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (globalState) => ({

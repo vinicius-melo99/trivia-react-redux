@@ -1,6 +1,7 @@
 import {
   SALVA_ACERTOS,
   SALVA_PLACAR,
+  FAZ_LOGOUT,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -19,6 +20,10 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       assertions: state.assertions + action.payload,
+    };
+  case FAZ_LOGOUT:
+    return {
+      ...INITIAL_STATE,
     };
   default:
     return state;

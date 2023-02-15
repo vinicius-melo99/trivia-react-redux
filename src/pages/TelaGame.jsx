@@ -10,6 +10,7 @@ import {
 import Header from '../components/Header';
 import Timer from '../components/Timer';
 import triviaLogo from '../images/logo_trivia.png';
+import { generateHash } from '../utils.js/emailHash';
 
 class TelaGame extends PureComponent {
   state = {
@@ -93,6 +94,7 @@ class TelaGame extends PureComponent {
       const { dispatch } = this.props;
       clearInterval(global.timer);
       dispatch(desativaBotoes());
+      this.setState({ showNext: true });
     }
   };
 
@@ -150,6 +152,17 @@ class TelaGame extends PureComponent {
     this.setState({ showNext: false, timer: 30 });
     const { indexPergunta } = this.state;
     if (indexPergunta === ultimoIndex) {
+      const { email, nome, score } = this.props;
+      if (!localStorage.getItem('playerPoints')) {
+        localStorage.setItem('playerPoints', JSON.stringify([]));
+      }
+      const armazenaPontos = JSON.parse(localStorage.getItem('playerPoints'));
+      armazenaPontos.push({
+        nome,
+        imgHash: generateHash(email),
+        score,
+      });
+      localStorage.setItem('playerPoints', JSON.stringify(armazenaPontos));
       history.push('/feedbackpage');
     }
     dispatch(ativaBotoes());
@@ -217,6 +230,20 @@ TelaGame.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  email: PropTypes.string.isRequired,
+  nome: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
-export default connect()(TelaGame);
+const mapStateToProps = (globalState) => {
+  const {
+    user: { email, nome },
+    player: { score },
+  } = globalState;
+  return {
+    email,
+    nome,
+    score,
+  };
+};
+export default connect(mapStateToProps)(TelaGame);
